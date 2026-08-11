@@ -1,0 +1,7 @@
+interface:
+  display_name: "Source-Faithful 学术汇报"
+  short_description: "Create presentations with the Source-Faithful 学术汇报 template"
+  icon_large: "./assets/preview.png"
+  default_prompt: "Use $artifact-template-source-faithful to create a presentation with this template."
+policy:
+  allow_implicit_invocation: true
