@@ -1,1 +1,1 @@
-This is a skill for my reuseable PPT.
+This is a skill for my reusable PPT.
