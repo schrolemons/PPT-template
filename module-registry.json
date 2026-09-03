@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "modules": [
+    {
+      "id": "deck-structure-planner",
+      "label": "整体结构规划器",
+      "class": "structure",
+      "instruction": "references/modules/structure/deck-structure-planner.md",
+      "template": null,
+      "variants": ["multi-chapter-structure-map"],
+      "dependencies": ["core-contract"],
+      "status": "active"
+    },
+    {
+      "id": "whole-deck-overview",
+      "label": "全局总览目录",
+      "class": "structure",
+      "instruction": "references/modules/structure/whole-deck-overview.md",
+      "template": "assets/modules/whole-deck-overview.pptx",
+      "variants": ["chapter-scope-and-page-range"],
+      "dependencies": ["core-contract"],
+      "status": "active"
+    },
+    {
+      "id": "chapter-agenda",
+      "label": "分部分目录",
+      "class": "structure",
+      "instruction": "references/modules/structure/chapter-agenda.md",
+      "template": "assets/modules/chapter-agenda.pptx",
+      "variants": ["chapter-section-agenda"],
+      "dependencies": ["core-contract"],
+      "status": "active"
+    },
+    {
+      "id": "progressive-navigation",
+      "label": "变化的小目录",
+      "class": "structure",
+      "instruction": "references/modules/structure/progressive-navigation.md",
+      "template": "assets/modules/progressive-navigation.pptx",
+      "variants": ["single-row-navigation", "multi-row-navigation", "successive-subdirectory"],
+      "dependencies": ["core-contract"],
+      "status": "active"
+    },
+    {
+      "id": "paper-reading-display",
+      "label": "论文阅读展示",
+      "class": "content",
+      "instruction": "references/modules/content/paper-reading-display.md",
+      "template": "assets/modules/paper-reading-display.pptx",
+      "variants": ["paper-overview-left-figure-right-content", "training-workflow", "inference-workflow", "training-inference-dual-lane", "key-interface", "stage-participation-matrix", "direct-comparison"],
+      "dependencies": ["core-contract"],
+      "status": "active"
+    },
+    {
+      "id": "work-process-display",
+      "label": "工作过程介绍",
+      "class": "content",
+      "instruction": "references/modules/content/work-process-display.md",
+      "template": "assets/modules/work-process-display.pptx",
+      "variants": ["four-step", "seven-eight-step", "dual-lane", "stage-matrix", "input-process-output"],
+      "dependencies": ["core-contract"],
+      "status": "active"
+    },
+    {
+      "id": "conclusion-display",
+      "label": "结论介绍",
+      "class": "content",
+      "instruction": "references/modules/content/conclusion-display.md",
+      "template": "assets/modules/conclusion-display.pptx",
+      "variants": ["three-dimension-synthesis", "conclusion-and-evidence", "comparison-table", "evidence-boundary"],
+      "dependencies": ["core-contract"],
+      "status": "active"
+    },
+    {
+      "id": "front-and-ending",
+      "label": "首尾页",
+      "class": "content",
+      "instruction": "references/modules/content/front-and-ending.md",
+      "template": "assets/modules/front-and-ending.pptx",
+      "variants": ["cover", "whole-report-positioning", "chapter-transition-end", "final-synthesis-end"],
+      "dependencies": ["core-contract"],
+      "status": "active"
+    },
+    {
+      "id": "multi-point-summary",
+      "label": "分条分点性质概括",
+      "class": "content",
+      "instruction": "references/modules/content/multi-point-summary.md",
+      "template": "assets/modules/multi-point-summary.pptx",
+      "variants": ["three-point-overview", "five-point-overview", "equal-weight-point-list", "grouped-overview"],
+      "dependencies": ["core-contract"],
+      "status": "active"
+    }
+  ]
+}

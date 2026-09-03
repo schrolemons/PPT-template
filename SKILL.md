@@ -1,46 +1,39 @@
 ---
 name: artifact-template-source-faithful
-description: "Create or revise source-faithful academic and technical PowerPoint presentations with a reusable layout library. Use when the user invokes $artifact-template-source-faithful, selects Source-Faithful 学术汇报, asks to build a PPT from source documents without inventing content, or requires careful handling of multi-point, image, table, source-footer, and speaker-note pages."
+description: "Create or revise source-faithful academic and technical PowerPoint presentations with a reusable, extensible layout library. Use when the user invokes $artifact-template-source-faithful, selects Source-Faithful 学术汇报, asks to build a PPT from source documents without inventing content, or requires careful handling of multi-chapter structure, progressive navigation, multi-point, image, table, source-footer, and speaker-note pages."
 ---
 
 # Source-Faithful 学术汇报
 
-Create a presentation that is traceable to the user's source material and visually consistent with the retained reference deck.
+Create a traceable presentation under the shared [source-fidelity](references/core/source-fidelity.md), [notes-and-sources](references/core/notes-and-sources.md), and [visual-QA](references/core/visual-qa.md) contracts. Use [module-registry.json](module-registry.json) for discovery and [module-interface.md](references/module-interface.md) for connection and maintenance fields.
 
-## Core workflow
+## Architecture
 
-1. Read `artifact-template.json` and resolve all paths relative to this skill directory.
-2. Read every source file designated by the user before drafting slides. Treat those files as the factual and stylistic authority.
-3. Build a compact source ledger that maps each proposed slide to its supporting file, section, page, figure, table, or link.
-4. Load [@presentations](plugin://presentations@openai-primary-runtime) and use its reference/template workflow with `assets/reference.pptx`.
-5. Select only the layout archetypes needed for the current narrative. Clone or import the reference deck; do not replace its visual system with generic defaults.
-6. Draft visible content, the bottom source line, and the speaker notes together so every claim remains traceable.
-7. Render the full deck, inspect every slide, run structural checks, and revise until the content and layout both pass.
+Structural modules are the upper orchestration layer, not peers of content modules. They freeze and maintain the `structure-map`, insert orientation pages at narrative boundaries, and apply page spans and navigation state. Content modules are the source-faithful page units they organize; structure modules do not rewrite content-module fields or claims.
 
-## Non-negotiable content rules
+The required multi-chapter sequence is:
 
-- Treat the supplied source as the authority. Do not invent claims, conclusions, experiments, completed work, plans, titles, bullet points, examples, or data merely to fill a layout.
-- Prefer the source's terminology, descriptions, sentence rhythm, and language level. Paraphrase only when it improves clarity without changing scope or certainty.
-- Derive titles from the source. If the source has no title, use a neutral descriptive label; never add an unsupported takeaway headline.
-- Preserve qualifiers, uncertainty, units, dates, names, scope limits, exceptions, and distinctions between evidence and interpretation.
-- Prefer complete source coverage over an artificially low slide count. Split dense material instead of omitting it or shrinking type.
-- If a template slot has no source-supported content, remove the slot, change to a suitable retained layout, or leave an explicit editable placeholder in a template-only deliverable.
+`封面 → 全局总览 → 第一章目录 → 第一章内容 → 第二章目录 → 第二章内容…`
 
-## Page-type handling
+Never stack all chapter-directory pages together. Treat user- or source-defined subparts separated by enumeration commas, commas, semicolons, or numbering as independent `section_id` units unless the user or source explicitly combines them.
 
-- Multi-point pages: give each slide one narrative job; use an overview followed by detail slides when needed; keep parallel items at a parallel hierarchy; split content when full explanations do not fit.
-- Image pages: use a source-provided or independently verified image only when it contributes evidence or explanation; crop safely, preserve important labels, and add a caption and source. Never fabricate screenshots, logos, diagrams, or visual evidence.
-- Table pages: preserve headers, categories, units, footnotes, and comparison logic. Split long tables or move supporting detail to another slide rather than making text unreadably small.
-- Process and relationship pages: use a diagram only when sequence, dependency, or structure is clearer visually. Preserve the source semantics and do not add decorative connections that imply unsupported causality.
-- Read `references/page-types-and-qa.md` before choosing frames or performing final QA.
+## Workflow
 
-## Sources and speaker notes
+1. Read all user-designated sources and preserve the user-specified order.
+2. Load only `deck-structure-planner` and freeze the `structure-map` before layout work.
+3. Insert structural modules at their narrative positions: whole-deck overview after the cover, each chapter agenda immediately before that chapter's content, and progressive navigation on the content it governs.
+4. Route each content unit to exactly one content module in the registry.
+5. After any content split, recalculate directory page ranges, navigation page ranges, active states, page numbers, and transitions.
+6. Run per-module QA and then whole-deck structure, source, Notes, overflow, rendering, and template-fidelity QA.
 
-- Put a visible `Source: ...` line at the bottom of every content slide. Include the exact file, author or organization when available, section or page, and link when applicable. The cover may omit this line.
-- Put a complete, directly readable, multi-sentence speaker script in PowerPoint Notes for every slide. Cover the slide's purpose, key points, evidence, and transition.
-- End each notes entry with a `[Sources]` block that lists the source details used by that slide.
-- Keep scripts in Notes only. Never place labels such as `口播稿`, `讲稿`, or internal drafting instructions on the visible slide.
+After structure planning, read only the references for the modules selected by the frozen `structure-map`; do not load every module reference by default. Use each selected module's independent PPTX asset and keep all claims inside the core evidence boundary.
 
-## Template fidelity
+## Template placeholder state
 
-Preserve the retained deck's layouts, typography, geometry, palette, tables, recurring navigation, source footer, and page-number system unless the user explicitly requests a change. Use the reference as a layout library: clone the needed archetypes, replace placeholders, and delete unused frames.
+Treat reusable module PPTX files as field-contract templates, not as miniature sample reports. Their replaceable visible text must use semantic guidance labels such as `章节标题`, `分组标题`, `要点标题`, `要点说明`, `输入`, `处理`, `输出`, and `来源页码`; do not populate those slots with a particular paper, model, conclusion, experiment, or robot. Keep the labels specific enough to reveal hierarchy and reading order, but never add instructions such as “请替换” to the visible slide.
+
+When producing an actual report, replace every guidance label with readable source-faithful wording from the designated documents. The template's generic wording never authorizes compressing the source into labels, keywords, component chains, or terse fragments.
+
+## Unmatched page needs
+
+If a page need has no matching registry entry, follow the candidate approval gate in [module-interface.md](references/module-interface.md#candidate-extension-gate): build and show an isolated candidate under the task workspace, preserve the formal registry and module assets until the user explicitly approves that exact layout, then register one independent module.
