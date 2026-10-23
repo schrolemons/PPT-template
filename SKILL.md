@@ -28,6 +28,8 @@ Never stack all chapter-directory pages together. Treat user- or source-defined 
 
 After structure planning, read only the references for the modules selected by the frozen `structure-map`; do not load every module reference by default. Use each selected module's independent PPTX asset and keep all claims inside the core evidence boundary.
 
+When explaining repository code structure, training structure, or evaluation structure, also read [code-structure](references/core/code-structure.md). Present module composition before internals, distinguish assembly from execution order, and carry the user's annotations into readable module blocks.
+
 ## Template placeholder state
 
 Treat reusable module PPTX files as field-contract templates, not as miniature sample reports. Their replaceable visible text must use semantic guidance labels such as `章节标题`, `分组标题`, `要点标题`, `要点说明`, `输入`, `处理`, `输出`, and `来源页码`; do not populate those slots with a particular paper, model, conclusion, experiment, or robot. Keep the labels specific enough to reveal hierarchy and reading order, but never add instructions such as “请替换” to the visible slide.
